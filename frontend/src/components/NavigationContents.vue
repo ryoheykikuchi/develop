@@ -11,8 +11,9 @@
           color="primary"
         )
           template(v-slot:activator)
-            v-list-item-content
-              v-list-item-title {{ navi.name }}
+            v-list-item-title(
+              @click="toPage(navi.link)"
+            ) {{ navi.name }}
           v-list-item(
             v-for="list in navi.lists"
             :key="list.name"
@@ -24,43 +25,48 @@
 </template>
 <script lang="ts">
 import Vue from 'vue'
-export default Vue.extend({
-  name: 'NavigationContents',
+import axios from 'axios'
+import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
+@Component
+export default class NavigationContents extends Vue {
+  navigationList: any[] = [
+    {
+      name: 'HOME',
+      icon: 'mdi-vuetify',
+      lists: [
+        { name: 'NEWS', link: '' },
+        { name: 'PRESS RELEASE', link: '' }
+      ]
+    },
+    {
+      name: 'ABOUT',
+      icon: 'mdi-cogs',
+      link: 'About'
+    },
+    {
+      name: 'SHOPS',
+      icon: 'mdi-palette',
+      link: 'About'
+    },
+    {
+      name: 'ONLINE STORE',
+      icon: 'mdi-view-dashboard',
+      link: 'Products'
+    },
+    {
+      name: 'MY PAGE',
+      icon: 'mdi-function',
+      link: 'About'
+    },
+    {
+      name: 'HELP',
+      icon: 'mdi-vuetify',
+      link: 'About'
+    }
+  ]
 
-  components: {
-    //
-  },
-  data: () => ({
-    navigationList: [
-      {
-        name: 'HOME',
-        icon: 'mdi-vuetify',
-        lists: [
-          { name: 'NEWS', link: '' },
-          { name: 'PRESS RELEASE', link: '' }
-        ]
-      },
-      {
-        name: 'ABOUT',
-        icon: 'mdi-cogs'
-      },
-      {
-        name: 'SHOPS',
-        icon: 'mdi-palette'
-      },
-      {
-        name: 'ONLINE STORE',
-        icon: 'mdi-view-dashboard'
-      },
-      {
-        name: 'MY PAGE',
-        icon: 'mdi-function'
-      },
-      {
-        name: 'HELP',
-        icon: 'mdi-vuetify'
-      }
-    ]
-  })
-})
+  toPage (pageName: string, params?: any): void {
+    this.$router.push({ name: pageName, params: params })
+  }
+}
 </script>

@@ -12,10 +12,9 @@
       a.mx-2(
         href="/"
         style="color: #ffffff; text-decoration: none; font-size: 1.7em;"
-      ) Vuetify
+      ) RIDE SHOP
       v-spacer
       v-toolbar-items
-        v-btn(text to="/about") BUTTON
         v-menu(offset-y)
           template(v-slot:activator="{on}")
             v-btn(
@@ -36,7 +35,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
 
 export default Vue.extend({
   name: 'AppBar',
@@ -57,14 +55,6 @@ export default Vue.extend({
       {
         name: 'ONLINE STORE',
         link: '/products'
-      },
-      {
-        name: 'menu4',
-        link: ''
-      },
-      {
-        name: 'menu5',
-        link: ''
       }
     ]
   })
