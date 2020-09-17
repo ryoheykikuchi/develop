@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
-import Home from '../views/Home.vue'
+import Top from '../views/Top.vue'
 import Sample from '../views/Sample.vue'
 import Error from '../views/Error.vue'
 import UserList from '../views/UserList.vue'
@@ -28,9 +28,9 @@ export default new VueRouter({
       component: Products
     },
     {
-      path: '/home',
-      name: 'Home',
-      component: Home
+      path: '/top',
+      name: 'TOP',
+      component: Top
     },
     {
       path: '/about',
@@ -42,8 +42,8 @@ export default new VueRouter({
     },
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'Top',
+      component: Top
     },
     {
       path: '/*',

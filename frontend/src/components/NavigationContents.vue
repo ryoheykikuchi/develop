@@ -11,9 +11,7 @@
           color="primary"
         )
           template(v-slot:activator)
-            v-list-item-title(
-              @click="toPage(navi.link)"
-            ) {{ navi.name }}
+            v-list-item-title {{ navi.name }}
           v-list-item(
             v-for="list in navi.lists"
             :key="list.name"
@@ -31,37 +29,38 @@ import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
 export default class NavigationContents extends Vue {
   navigationList: any[] = [
     {
-      name: 'HOME',
+      name: 'SKATE',
       icon: 'mdi-vuetify',
       lists: [
-        { name: 'NEWS', link: '' },
-        { name: 'PRESS RELEASE', link: '' }
+        { name: 'DECK', link: '' },
+        { name: 'TRACK', link: '' },
+        { name: 'WHEEL', link: '' },
+        { name: 'COMPLETE', link: '' },
+        { name: 'ACCESSORY', link: '' }
       ]
     },
     {
-      name: 'ABOUT',
-      icon: 'mdi-cogs',
-      link: 'About'
-    },
-    {
-      name: 'SHOPS',
-      icon: 'mdi-palette',
-      link: 'About'
-    },
-    {
-      name: 'ONLINE STORE',
-      icon: 'mdi-view-dashboard',
-      link: 'Products'
-    },
-    {
-      name: 'MY PAGE',
-      icon: 'mdi-function',
-      link: 'About'
-    },
-    {
-      name: 'HELP',
+      name: 'SNOW',
       icon: 'mdi-vuetify',
-      link: 'About'
+      lists: [
+        { name: 'MENS SNOWBOARD GOODS', link: '' },
+        { name: 'WOMENS SNOWBOARD GOODS', link: '' },
+        { name: 'MENS WEAR', link: '' },
+        { name: 'WOMENS WEAR', link: '' },
+        { name: 'MENS GLOBE', link: '' },
+        { name: 'WOMENS GLOBE', link: '' },
+        { name: 'GOGGLES', link: '' },
+        { name: 'ACCESSORY', link: '' }
+      ]
+    },
+    {
+      name: 'SURF',
+      icon: 'mdi-vuetify',
+      lists: [
+        { name: 'SURFBOARD', link: '' },
+        { name: 'WET SUITS', link: '' },
+        { name: 'ACCESSORY', link: '' }
+      ]
     }
   ]
 
