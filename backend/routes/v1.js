@@ -23,7 +23,17 @@ router.post('/select_users', function(req, res, next) {
   })
 });
 router.post('/select_products', function(req, res, next) {
-  const sql = 'SELECT product.name AS product_name, product.price, product.stock, category.name AS category_name FROM product JOIN category ON product.category_id = category.id';
+  const sql = `
+  SELECT
+    product.id,
+    product.name AS product_name,
+    product.price,
+    product.stock,
+    category.name AS category_name
+  FROM product 
+    JOIN category
+    ON product.category_id = category.id
+  `;
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.json(result);

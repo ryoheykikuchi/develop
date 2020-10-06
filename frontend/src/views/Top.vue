@@ -1,5 +1,16 @@
 <template lang="pug">
   .top
+    //- p {{ notification }}
+    //- v-btn(
+    //-   icon
+    //-   @click="increment(1)"
+    //- )
+    //-   v-icon mdi-plus
+    //- v-btn(
+    //-   @click="clear"
+    //- ) clear notification
+    //- p {{ cartItems }}
+    //- h1 計{{ cartItemsCount }}点
     //- スライドカルーセル
     v-carousel.mb-9(
       cycle
@@ -14,6 +25,20 @@
       )
     //- 新着商品
     h3(align="center") NEW PRODUCTS
+    v-slide-group(
+    )
+      v-slide-item(
+        v-for="(item, i) in items"
+        :key="i"
+      )
+        v-card.pa-4(
+          height="225px"
+          width="225px"
+        )
+          v-img(
+            :src="item.img"
+          )
+    //- 旧型
     v-row.fill-height(
       align="center"
       justify="center"
@@ -55,6 +80,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
+import { mapState } from 'vuex'
 @Component
 export default class TOP extends Vue {
   slides: any = [
@@ -90,6 +116,26 @@ export default class TOP extends Vue {
       img: 'http://lorempixel.com/output/nightlife-q-c-640-480-5.jpg'
     }
   ]
+
+  get notification () {
+    return this.$store.state.notification
+  }
+
+  get cartItems () {
+    return this.$store.state.cartItems
+  }
+
+  get cartItemsCount () {
+    return this.$store.getters.cartItemsCount
+  }
+
+  increment (n: number): void {
+    this.$store.dispatch('increment', n)
+  }
+
+  clear (): void {
+    this.$store.commit('clear')
+  }
 }
 </script>
 <style>

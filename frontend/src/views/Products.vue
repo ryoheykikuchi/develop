@@ -1,7 +1,6 @@
 <template lang="pug">
   .products
     h1 ONLINE STORE
-    v-card-title {{items.category_id}}
     v-divider
     v-card(tile flat)
       v-card-text
@@ -17,7 +16,7 @@
             span(v-else-if="item.stock > 0") 残りわずか
             span(v-else) 入荷待ち
           template(
-            v-slot:item.action="{ header }"
+            v-slot:item.action="{ item }"
           )
             v-btn(
               @click=""
@@ -26,7 +25,7 @@
             )
               v-icon mdi-information
             v-btn.ml-3(
-              @click=""
+              @click="addToCart(item)"
               small
               icon
             )
@@ -38,7 +37,6 @@ import axios from 'axios'
 import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
 @Component
 export default class Products extends Vue {
-  items: any[] = [];
   loading = false;
   headers: any[] = [
     { text: 'product_name', value: 'product_name' },
@@ -47,19 +45,32 @@ export default class Products extends Vue {
     { text: '', value: 'action', sortable: false, width: '200px' }
   ];
 
-  async created (): Promise<void> {
-    this.loading = true
-    await axios.post('http://localhost:3000/v1/select_products')
-      .then(res => {
-        this.items = res.data
-        this.loading = false
-        console.log(this.items)
-      })
-      .catch(res => {
-        console.log(res)
-        this.loading = false
-        alert(res)
-      })
+  get items (): any {
+    return this.$store.state.products
+  }
+
+  created (): void {
+    this.$store.dispatch('getAllProducts')
+  }
+
+  // async created (): Promise<void> {
+  //   this.loading = true
+  //   await axios.post('http://localhost:3000/v1/select_products')
+  //     .then(res => {
+  //       this.items = res.data
+  //       this.loading = false
+  //       console.log(this.items)
+  //     })
+  //     .catch(res => {
+  //       console.log(res)
+  //       this.loading = false
+  //       alert(res)
+  //     })
+  // }
+
+  addToCart (product: any): void {
+    this.$store.dispatch('addToCart', product)
+    console.log(this.$store.state.cartItems)
   }
 }
 

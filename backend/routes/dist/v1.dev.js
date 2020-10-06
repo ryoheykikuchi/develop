@@ -20,8 +20,6 @@ con.connect(function (err) {
   if (err) throw err;
   console.log('Connection Successed!');
 });
-/* GET users listing. */
-
 router.post('/select_users', function (req, res, next) {
   var sql = 'SELECT * FROM users';
   con.query(sql, function (err, result, fields) {
@@ -29,14 +27,12 @@ router.post('/select_users', function (req, res, next) {
     res.send(result);
   });
 });
-router.get('/test', function (req, res, next) {
-  res.json({
-    message: 'Test API',
-    id: 2,
-    name: {
-      sei: 'kikuchi',
-      mei: 'ryohei'
-    }
+router.post('/select_products', function (req, res, next) {
+  var sql = "\n  SELECT\n    product.id,\n    product.name AS product_name,\n    product.price,\n    product.stock,\n    category.name AS category_name\n  FROM product \n    JOIN category\n    ON product.category_id = category.id\n  ";
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json(result);
+    console.log(result);
   });
 });
 router.post('/insert_user', function (req, res, next) {
