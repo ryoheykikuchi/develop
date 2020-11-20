@@ -2,10 +2,13 @@
 exports.__esModule = true;
 var vue_1 = require("vue");
 var vue_router_1 = require("vue-router");
-var Home_vue_1 = require("../views/Home.vue");
+var Top_vue_1 = require("../views/Top.vue");
 var Sample_vue_1 = require("../views/Sample.vue");
 var Error_vue_1 = require("../views/Error.vue");
 var UserList_vue_1 = require("../views/UserList.vue");
+var Products_vue_1 = require("../views/Products.vue");
+var ShoppingCart_vue_1 = require("../views/ShoppingCart.vue");
+var PurchaseProcedure_vue_1 = require("../views/PurchaseProcedure.vue");
 vue_1["default"].use(vue_router_1["default"]);
 exports["default"] = new vue_router_1["default"]({
     mode: 'history',
@@ -22,9 +25,24 @@ exports["default"] = new vue_router_1["default"]({
             component: UserList_vue_1["default"]
         },
         {
-            path: '/home',
-            name: 'Home',
-            component: Home_vue_1["default"]
+            path: '/products',
+            name: 'Products',
+            component: Products_vue_1["default"]
+        },
+        {
+            path: '/shopping-cart',
+            name: 'ShoppingCart',
+            component: ShoppingCart_vue_1["default"]
+        },
+        {
+            path: '/purchase-procedure',
+            name: 'PurchaseProcedure',
+            component: PurchaseProcedure_vue_1["default"]
+        },
+        {
+            path: '/top',
+            name: 'TOP',
+            component: Top_vue_1["default"]
         },
         {
             path: '/about',
@@ -36,8 +54,8 @@ exports["default"] = new vue_router_1["default"]({
         },
         {
             path: '/',
-            name: 'Home',
-            component: Home_vue_1["default"]
+            name: 'Top',
+            component: Top_vue_1["default"]
         },
         {
             path: '/*',

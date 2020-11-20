@@ -5,6 +5,8 @@ import Sample from '../views/Sample.vue'
 import Error from '../views/Error.vue'
 import UserList from '../views/UserList.vue'
 import Products from '../views/Products.vue'
+import ShoppingCart from '../views/ShoppingCart.vue'
+import PurchaseProcedure from '../views/PurchaseProcedure.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +28,16 @@ export default new VueRouter({
       path: '/products',
       name: 'Products',
       component: Products
+    },
+    {
+      path: '/shopping-cart',
+      name: 'ShoppingCart',
+      component: ShoppingCart
+    },
+    {
+      path: '/purchase-procedure',
+      name: 'PurchaseProcedure',
+      component: PurchaseProcedure
     },
     {
       path: '/top',

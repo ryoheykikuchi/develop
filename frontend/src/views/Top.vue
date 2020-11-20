@@ -10,7 +10,7 @@
     //-   @click="clear"
     //- ) clear notification
     //- p {{ cartItems }}
-    //- h1 計{{ cartItemsCount }}点
+    //- h1 計{{ countCartItems }}点
     //- スライドカルーセル
     v-carousel.mb-9(
       cycle
@@ -125,8 +125,8 @@ export default class TOP extends Vue {
     return this.$store.state.cartItems
   }
 
-  get cartItemsCount () {
-    return this.$store.getters.cartItemsCount
+  get countCartItems () {
+    return this.$store.getters.countCartItems
   }
 
   increment (n: number): void {

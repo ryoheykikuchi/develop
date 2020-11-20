@@ -1,6 +1,9 @@
 <template lang="pug">
   .products
     h1 ONLINE STORE
+    v-btn(
+      :to="'/shopping-cart'"
+    ) カートを見る
     v-divider
     v-card(tile flat)
       v-card-text
@@ -25,11 +28,10 @@
             )
               v-icon mdi-information
             v-btn.ml-3(
-              @click="addToCart(item)"
+              @click="$store.dispatch('addToCart', item)"
               small
-              icon
-            )
-              v-icon mdi-cart-arrow-down
+              color="primary"
+            ) カートに入れる
 </template>
 <script lang="ts">
 import Vue from 'vue'
@@ -49,8 +51,12 @@ export default class Products extends Vue {
     return this.$store.state.products
   }
 
-  created (): void {
-    this.$store.dispatch('getAllProducts')
+  get cartProducts (): any {
+    return this.$store.getters.cartProducts
+  }
+
+  async created (): Promise<void> {
+    await this.$store.dispatch('getAllProducts')
   }
 
   // async created (): Promise<void> {
@@ -67,11 +73,6 @@ export default class Products extends Vue {
   //       alert(res)
   //     })
   // }
-
-  addToCart (product: any): void {
-    this.$store.dispatch('addToCart', product)
-    console.log(this.$store.state.cartItems)
-  }
 }
 
 </script>
