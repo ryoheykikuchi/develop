@@ -14,22 +14,15 @@ con.connect(function(err) {
   if (err) throw err;
   console.log('Connection Successed!');
 });
-
-router.post('/select_users', function(req, res, next) {
-  const sql = 'SELECT * FROM users';
-  con.query(sql, function (err, result, fields) {
-    if (err) throw err;
-    res.send(result);
-  })
-});
+// products
 router.post('/select_products', function(req, res, next) {
   const sql = `
   SELECT
-    product.id,
-    product.name AS product_name,
-    product.price,
-    product.stock,
-    category.name AS category_name
+  product.id,
+  product.name AS product_name,
+  product.price,
+  product.stock,
+  category.name AS category_name
   FROM product 
     JOIN category
     ON product.category_id = category.id
@@ -41,6 +34,18 @@ router.post('/select_products', function(req, res, next) {
   })
 });
 
+router.post('update_products', function(req, res, next) {
+
+});
+
+// users
+router.post('/select_users', function(req, res, next) {
+  const sql = 'SELECT * FROM users';
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.send(result);
+  })
+});
 router.post('/insert_user', function(req, res, next) {
   const sql = "INSERT INTO users SET ?";
   con.query(sql, req.body, function (err, result, fields) {

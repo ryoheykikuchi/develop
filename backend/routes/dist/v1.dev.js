@@ -19,20 +19,23 @@ var con = mysql.createConnection({
 con.connect(function (err) {
   if (err) throw err;
   console.log('Connection Successed!');
+}); // products
+
+router.post('/select_products', function (req, res, next) {
+  var sql = "\n  SELECT\n  product.id,\n  product.name AS product_name,\n  product.price,\n  product.stock,\n  category.name AS category_name\n  FROM product \n    JOIN category\n    ON product.category_id = category.id\n  ";
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.json(result);
+    console.log(result);
+  });
 });
+router.post('update_products', function (req, res, next) {}); // users
+
 router.post('/select_users', function (req, res, next) {
   var sql = 'SELECT * FROM users';
   con.query(sql, function (err, result, fields) {
     if (err) throw err;
     res.send(result);
-  });
-});
-router.post('/select_products', function (req, res, next) {
-  var sql = "\n  SELECT\n    product.id,\n    product.name AS product_name,\n    product.price,\n    product.stock,\n    category.name AS category_name\n  FROM product \n    JOIN category\n    ON product.category_id = category.id\n  ";
-  con.query(sql, function (err, result, fields) {
-    if (err) throw err;
-    res.json(result);
-    console.log(result);
   });
 });
 router.post('/insert_user', function (req, res, next) {

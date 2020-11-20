@@ -2,7 +2,7 @@
   .shopping-cart
     h1 カート
     v-data-table(
-      :items="cartProducts"
+      :items="$store.getters.cartProducts"
       :headers="headers"
     )
       template(v-slot:item.action="{ item }")
@@ -55,14 +55,6 @@ export default class ShoppingCart extends Vue {
   ]
 
   quantitySelects: number[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-
-  get cartProducts (): any {
-    return this.$store.getters.cartProducts
-  }
-
-  created (): void {
-    console.log(this.cartProducts)
-  }
 }
 </script>
 <style lang="sass" scoped>
