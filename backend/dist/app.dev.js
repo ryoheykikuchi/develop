@@ -23,7 +23,7 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({
-  extended: false
+  extended: true
 }));
 app.use(cookieParser());
 app.use(express["static"](path.join(__dirname, 'public'))); // CORS回避

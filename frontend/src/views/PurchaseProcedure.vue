@@ -14,7 +14,7 @@
         p {{ $store.getters.cartTotalPrice.toLocaleString() }} 円
     v-row.justify-center
       v-btn.my-2(
-        @click="purchase()"
+        @click="checkout()"
         width="150px"
         color="black"
         dark
@@ -37,8 +37,8 @@ export default class PurchaseProcedure extends Vue {
     { text: '数量', value: 'quantity' }
   ]
 
-  purchase (): void {
-    //
+  checkout (): void {
+    this.$store.dispatch('checkout')
   }
 }
 </script>

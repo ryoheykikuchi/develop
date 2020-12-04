@@ -29,7 +29,14 @@ router.post('/select_products', function (req, res, next) {
     console.log(result);
   });
 });
-router.post('update_products', function (req, res, next) {}); // users
+router.post('/update_stock', function (req, res, next) {
+  console.log(req.body);
+  var sql = "\n  UPDATE\n    product\n  SET\n    stock = stock - ".concat(req.body[0].quantity, "\n  WHERE\n    id = ").concat(req.body[0].id, ";\n  ");
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.send(result);
+  }); // res.json(req.body);
+}); // users
 
 router.post('/select_users', function (req, res, next) {
   var sql = 'SELECT * FROM users';

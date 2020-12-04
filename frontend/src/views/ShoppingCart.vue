@@ -34,6 +34,7 @@
         width="150px"
         color="black"
         dark
+        :disabled="!$store.state.cartItems.length"
       ) 購入手続きへ
     v-row.justify-center
       v-btn.my-2(

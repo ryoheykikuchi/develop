@@ -67,6 +67,9 @@ exports["default"] = new vuex_1["default"].Store({
             var productId = _a.productId, newQuantity = _a.newQuantity;
             state.cartItems.filter(function (item) { return item.id === productId; })[0].quantity = newQuantity;
             console.log(state.cartItems);
+        },
+        clearCart: function (state) {
+            state.cartItems = [];
         }
     },
     actions: {
@@ -77,7 +80,7 @@ exports["default"] = new vuex_1["default"].Store({
         },
         getAllProducts: function (_a) {
             var commit = _a.commit;
-            axios_1["default"].post('http://localhost:3000/select_products')
+            axios_1["default"].post('http://localhost:3000/v1/select_products')
                 .then(function (res) {
                 commit('setProducts', res.data);
             })["catch"](function (res) {
@@ -102,6 +105,15 @@ exports["default"] = new vuex_1["default"].Store({
             var commit = _a.commit;
             var productId = _b.productId, newQuantity = _b.newQuantity;
             commit('updateQuantity', { productId: productId, newQuantity: newQuantity });
+        },
+        checkout: function (_a) {
+            var state = _a.state, commit = _a.commit;
+            axios_1["default"].post('http://localhost:3000/v1/update_stock', state.cartItems)
+                .then(function (res) {
+                commit('clearCart');
+            })["catch"](function (res) {
+                alert(res);
+            });
         }
     },
     modules: {}

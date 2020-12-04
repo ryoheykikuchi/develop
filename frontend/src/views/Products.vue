@@ -31,6 +31,7 @@
               @click="$store.dispatch('addToCart', item)"
               small
               color="primary"
+              :disabled="!item.stock"
             ) カートに入れる
 </template>
 <script lang="ts">

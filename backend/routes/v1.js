@@ -34,8 +34,21 @@ router.post('/select_products', function(req, res, next) {
   })
 });
 
-router.post('update_products', function(req, res, next) {
-
+router.post('/update_stock', function(req, res, next) {
+  console.log(req.body);
+  const sql = `
+  UPDATE
+    product
+  SET
+    stock = stock - ${req.body[0].quantity}
+  WHERE
+    id = ${req.body[0].id};
+  `
+  con.query(sql, function (err, result, fields) {
+    if (err) throw err;
+    res.send(result);
+  })
+  // res.json(req.body);
 });
 
 // users

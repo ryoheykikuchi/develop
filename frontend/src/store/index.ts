@@ -65,6 +65,9 @@ export default new Vuex.Store({
     updateQuantity (state, { productId, newQuantity }) {
       state.cartItems.filter((item) => item.id === productId)[0].quantity = newQuantity
       console.log(state.cartItems)
+    },
+    clearCart (state) {
+      state.cartItems = []
     }
   },
   actions: {
@@ -74,7 +77,7 @@ export default new Vuex.Store({
       }, 1000)
     },
     getAllProducts ({ commit }) {
-      axios.post('http://localhost:3000/select_products')
+      axios.post('http://localhost:3000/v1/select_products')
         .then(res => {
           commit('setProducts', res.data)
         })
@@ -95,6 +98,15 @@ export default new Vuex.Store({
     },
     updateItemQuantity ({ commit }, { productId, newQuantity }) {
       commit('updateQuantity', { productId, newQuantity })
+    },
+    checkout ({ state, commit }) {
+      axios.post('http://localhost:3000/v1/update_stock', state.cartItems)
+        .then(res => {
+          commit('clearCart')
+        })
+        .catch(res => {
+          alert(res)
+        })
     }
   },
 
