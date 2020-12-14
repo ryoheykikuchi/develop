@@ -1,6 +1,6 @@
 <template lang="pug">
   .user-list
-    h1 マスタ
+    h1 会員マスタ
     v-card-title 会員情報
     v-divider
     v-card(tile flat)
