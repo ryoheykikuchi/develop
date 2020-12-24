@@ -1,17 +1,8 @@
 <template lang="pug">
   .top
-    //- p {{ notification }}
-    //- v-btn(
-    //-   icon
-    //-   @click="increment(1)"
-    //- )
-    //-   v-icon mdi-plus
-    //- v-btn(
-    //-   @click="clear"
-    //- ) clear notification
-    //- p {{ cartItems }}
-    //- h1 計{{ countCartItems }}点
-    //- スライドカルーセル
+    v-btn(
+      @click="loginHundler()"
+    ) googleアカウントでログイン
     v-carousel.mb-9(
       cycle
       height="400"
@@ -135,6 +126,10 @@ export default class TOP extends Vue {
 
   clear (): void {
     this.$store.commit('clear')
+  }
+
+  loginHundler (): void {
+    this.$store.dispatch('login')
   }
 }
 </script>

@@ -9,6 +9,7 @@ var UserList_vue_1 = require("../views/UserList.vue");
 var Products_vue_1 = require("../views/Products.vue");
 var ShoppingCart_vue_1 = require("../views/ShoppingCart.vue");
 var PurchaseProcedure_vue_1 = require("../views/PurchaseProcedure.vue");
+var Master_vue_1 = require("../views/Master.vue");
 vue_1["default"].use(vue_router_1["default"]);
 exports["default"] = new vue_router_1["default"]({
     mode: 'history',
@@ -18,6 +19,11 @@ exports["default"] = new vue_router_1["default"]({
             path: '/sample',
             name: 'Sample',
             component: Sample_vue_1["default"]
+        },
+        {
+            path: '/master',
+            name: 'Master',
+            component: Master_vue_1["default"]
         },
         {
             path: '/user-list',

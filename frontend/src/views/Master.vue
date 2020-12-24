@@ -8,7 +8,6 @@ import axios from 'axios'
 import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
 @Component
 export default class Master extends Vue {
-  
 }
 
 </script>

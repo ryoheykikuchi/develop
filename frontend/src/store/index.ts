@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import firebase from 'firebase/app'
 
 Vue.use(Vuex)
 
@@ -71,6 +72,10 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    login () {
+      const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithRedirect(googleAuthProvider)
+    },
     increment (context, payload) {
       setTimeout(() => {
         context.commit('increment', payload)

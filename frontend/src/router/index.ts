@@ -7,6 +7,7 @@ import UserList from '../views/UserList.vue'
 import Products from '../views/Products.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import PurchaseProcedure from '../views/PurchaseProcedure.vue'
+import Master from '../views/Master.vue'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,11 @@ export default new VueRouter({
       path: '/sample',
       name: 'Sample',
       component: Sample
+    },
+    {
+      path: '/master',
+      name: 'Master',
+      component: Master
     },
     {
       path: '/user-list',

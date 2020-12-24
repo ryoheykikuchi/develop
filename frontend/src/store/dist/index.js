@@ -3,6 +3,7 @@ exports.__esModule = true;
 var vue_1 = require("vue");
 var vuex_1 = require("vuex");
 var axios_1 = require("axios");
+var app_1 = require("firebase/app");
 vue_1["default"].use(vuex_1["default"]);
 var cartItems = [];
 var products = [];
@@ -73,6 +74,10 @@ exports["default"] = new vuex_1["default"].Store({
         }
     },
     actions: {
+        login: function () {
+            var googleAuthProvider = new app_1["default"].auth.GoogleAuthProvider();
+            app_1["default"].auth().signInWithRedirect(googleAuthProvider);
+        },
         increment: function (context, payload) {
             setTimeout(function () {
                 context.commit('increment', payload);
