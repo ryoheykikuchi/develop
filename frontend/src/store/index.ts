@@ -1,14 +1,16 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
-import firebase from 'firebase/app'
+import firebase from 'firebase'
 
 Vue.use(Vuex)
 
 const cartItems: any[] = []
 const products: any[] = []
+const loginUser: any|null = null
 export default new Vuex.Store({
   state: {
+    loginUser: loginUser,
     notification: 0,
     products: products,
     cartItems: cartItems,
@@ -39,6 +41,12 @@ export default new Vuex.Store({
       return getters.cartProducts.reduce((total: number, product: any) => {
         return total + product.quantity
       }, 0)
+    },
+    userName (state) {
+      return state.loginUser ? state.loginUser.displayName : ''
+    },
+    photoURL (state) {
+      return state.loginUser ? state.loginUser.photoURL : ''
     }
   },
   mutations: {
@@ -69,12 +77,18 @@ export default new Vuex.Store({
     },
     clearCart (state) {
       state.cartItems = []
+    },
+    setLoginUser (state, user) {
+      state.loginUser = user
+    },
+    deleteLoginUser (state) {
+      state.loginUser = null
     }
   },
   actions: {
     login () {
-      const googleAuthProvider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(googleAuthProvider)
+      const googleauthprovider = new firebase.auth.GoogleAuthProvider()
+      firebase.auth().signInWithRedirect(googleauthprovider)
     },
     increment (context, payload) {
       setTimeout(() => {
@@ -112,6 +126,15 @@ export default new Vuex.Store({
         .catch(res => {
           alert(res)
         })
+    },
+    setLoginUser ({ commit }, user) {
+      commit('setLoginUser', user)
+    },
+    deleteLoginUser ({ commit }) {
+      commit('deleteLoginUser')
+    },
+    logout () {
+      firebase.auth().signOut()
     }
   },
 

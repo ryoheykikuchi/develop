@@ -3,12 +3,14 @@ exports.__esModule = true;
 var vue_1 = require("vue");
 var vuex_1 = require("vuex");
 var axios_1 = require("axios");
-var app_1 = require("firebase/app");
+var firebase_1 = require("firebase");
 vue_1["default"].use(vuex_1["default"]);
 var cartItems = [];
 var products = [];
+var loginUser = null;
 exports["default"] = new vuex_1["default"].Store({
     state: {
+        loginUser: loginUser,
         notification: 0,
         products: products,
         cartItems: cartItems,
@@ -39,6 +41,12 @@ exports["default"] = new vuex_1["default"].Store({
             return getters.cartProducts.reduce(function (total, product) {
                 return total + product.quantity;
             }, 0);
+        },
+        userName: function (state) {
+            return state.loginUser ? state.loginUser.displayName : '';
+        },
+        photoURL: function (state) {
+            return state.loginUser ? state.loginUser.photoURL : '';
         }
     },
     mutations: {
@@ -71,12 +79,18 @@ exports["default"] = new vuex_1["default"].Store({
         },
         clearCart: function (state) {
             state.cartItems = [];
+        },
+        setLoginUser: function (state, user) {
+            state.loginUser = user;
+        },
+        deleteLoginUser: function (state) {
+            state.loginUser = null;
         }
     },
     actions: {
         login: function () {
-            var googleAuthProvider = new app_1["default"].auth.GoogleAuthProvider();
-            app_1["default"].auth().signInWithRedirect(googleAuthProvider);
+            var googleauthprovider = new firebase_1["default"].auth.GoogleAuthProvider();
+            firebase_1["default"].auth().signInWithRedirect(googleauthprovider);
         },
         increment: function (context, payload) {
             setTimeout(function () {
@@ -119,6 +133,17 @@ exports["default"] = new vuex_1["default"].Store({
             })["catch"](function (res) {
                 alert(res);
             });
+        },
+        setLoginUser: function (_a, user) {
+            var commit = _a.commit;
+            commit('setLoginUser', user);
+        },
+        deleteLoginUser: function (_a) {
+            var commit = _a.commit;
+            commit('deleteLoginUser');
+        },
+        logout: function () {
+            firebase_1["default"].auth().signOut();
         }
     },
     modules: {}

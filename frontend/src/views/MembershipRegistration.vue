@@ -1,5 +1,5 @@
 <template lang="pug">
-  .sample
+  .membership-registration
     h1 会員登録
     v-row.justify-center()
       v-col(

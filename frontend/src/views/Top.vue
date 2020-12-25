@@ -4,7 +4,6 @@
       @click="loginHundler()"
     ) googleアカウントでログイン
     v-carousel.mb-9(
-      cycle
       height="400"
       hide-delimiter-background
       show-arrows-on-hover
@@ -16,55 +15,55 @@
       )
     //- 新着商品
     h3(align="center") NEW PRODUCTS
-    v-slide-group(
-    )
-      v-slide-item(
-        v-for="(item, i) in items"
-        :key="i"
-      )
-        v-card.pa-4(
-          height="225px"
-          width="225px"
-        )
-          v-img(
-            :src="item.img"
-          )
+    //- v-slide-group(
+    //- )
+    //-   v-slide-item(
+    //-     v-for="(item, i) in items"
+    //-     :key="i"
+    //-   )
+    //-     v-card.pa-4(
+    //-       height="225px"
+    //-       width="225px"
+    //-     )
+    //-       v-img(
+    //-         :src="item.img"
+    //-       )
     //- 旧型
-    v-row.fill-height(
-      align="center"
-      justify="center"
-    )
-      template(
-        v-for="(item, i) in items"
-      )
-        v-col(
-          :key="i"
-          cols="12"
-          md="3"
-        )
-          v-hover(v-slot:default="{ hover }")
-            v-card(
-              :elevation="hover ? 12 : 2"
-              :class="{ 'on-hover': hover }"
-            )
-              v-img(
-                :src="item.img"
-                height="225px"
-              )
-                v-expand-transition
-                  .d-flex.transition-fast-in-fast-out.black.white--text.darken-2.v-card--reveal(
-                    v-if="hover"
-                    style="height: 100%;"
-                  )
-                    v-row
-                      v-col
-                        p {{ item.name }}
-                    v-row
-                      v-col
-                        p {{ item.color }}
-                    v-row
-                      v-col
-                        p {{ item.price }}
+    //- v-row.fill-height(
+    //-   align="center"
+    //-   justify="center"
+    //- )
+    //-   template(
+    //-     v-for="(item, i) in items"
+    //-   )
+    //-     v-col(
+    //-       :key="i"
+    //-       cols="12"
+    //-       md="3"
+    //-     )
+    //-       v-hover(v-slot:default="{ hover }")
+    //-         v-card(
+    //-           :elevation="hover ? 12 : 2"
+    //-           :class="{ 'on-hover': hover }"
+    //-         )
+    //-           v-img(
+    //-             :src="item.img"
+    //-             height="225px"
+    //-           )
+    //-             v-expand-transition
+    //-               .d-flex.transition-fast-in-fast-out.black.white--text.darken-2.v-card--reveal(
+    //-                 v-if="hover"
+    //-                 style="height: 100%;"
+    //-               )
+    //-                 v-row
+    //-                   v-col
+    //-                     p {{ item.name }}
+    //-                 v-row
+    //-                   v-col
+    //-                     p {{ item.color }}
+    //-                 v-row
+    //-                   v-col
+    //-                     p {{ item.price }}
 </template>
 
 <script lang="ts">

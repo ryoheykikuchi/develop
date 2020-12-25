@@ -25,7 +25,14 @@
           v-avatar(
             size="36"
           )
-            v-icon(large) mdi-account-circle
+            v-img(
+              v-if="$store.state.loginUser"
+              :src="$store.getters.photoURL"
+            )
+            v-icon(
+              v-else
+              large
+            ) mdi-account-circle
       v-toolbar-items
         v-menu(
           open-on-hover
@@ -36,16 +43,25 @@
             v-slot:activator="{ on, attrs }"
           )
             v-btn(
+              v-if="$store.state.loginUser"
               v-on="on"
               v-bind="attrs"
               text
-            ) 涼平
+            ) {{ $store.getters.userName }}
+            v-btn(
+              v-else
+              v-on="on"
+              v-bind="attrs"
+              text
+            ) GUEST
           v-list
             v-list-item(
               v-for="item in accountMenus"
-              @click=""
+              v-if="!item.nonDisplay"
+              @click="$emit('account-event', item.eventName)"
             )
-              v-list-item-title {{ item.name }}
+              v-list-item-title(
+              ) {{ item.name }}
         v-menu(
           offset-y
           open-on-hover
@@ -80,7 +96,7 @@ export default class AppBar extends Vue {
     },
     {
       name: '会員登録',
-      link: '/sample'
+      link: '/membership-registration'
     },
     {
       name: 'ONLINE STORE',
@@ -88,19 +104,49 @@ export default class AppBar extends Vue {
     }
   ]
 
-  accountMenus: any = [
-    {
-      name: 'マイページ',
-      link: ''
-    },
-    {
-      name: '購入履歴',
-      link: ''
-    },
-    {
-      name: '会員情報変更',
-      link: ''
-    }
-  ]
+  get accountMenus (): any {
+    return [
+      {
+        name: 'マイページ',
+        link: '',
+        eventName: '',
+        nonDisplay: !this.$store.state.loginUser
+      },
+      {
+        name: '購入履歴',
+        link: '',
+        eventName: '',
+        nonDisplay: !this.$store.state.loginUser
+      },
+      {
+        name: '会員情報変更',
+        link: '',
+        eventName: '',
+        nonDisplay: !this.$store.state.loginUser
+      },
+      {
+        name: 'ログアウト',
+        link: '',
+        eventName: 'logout',
+        nonDisplay: !this.$store.state.loginUser
+      },
+      {
+        name: 'ログイン',
+        link: '',
+        eventName: '',
+        nonDisplay: this.$store.state.loginUser
+      },
+      {
+        name: '新規会員登録',
+        link: '',
+        eventName: '',
+        nonDisplay: this.$store.state.loginUser
+      }
+    ]
+  }
+
+  get isLoggedIn (): boolean {
+    return this.$store.state.loginUser
+  }
 }
 </script>

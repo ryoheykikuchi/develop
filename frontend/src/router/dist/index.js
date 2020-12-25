@@ -3,7 +3,7 @@ exports.__esModule = true;
 var vue_1 = require("vue");
 var vue_router_1 = require("vue-router");
 var Top_vue_1 = require("../views/Top.vue");
-var Sample_vue_1 = require("../views/Sample.vue");
+var MembershipRegistration_vue_1 = require("../views/MembershipRegistration.vue");
 var Error_vue_1 = require("../views/Error.vue");
 var UserList_vue_1 = require("../views/UserList.vue");
 var Products_vue_1 = require("../views/Products.vue");
@@ -16,9 +16,9 @@ exports["default"] = new vue_router_1["default"]({
     base: process.env.BASE_URL,
     routes: [
         {
-            path: '/sample',
-            name: 'Sample',
-            component: Sample_vue_1["default"]
+            path: '/membership-registration',
+            name: 'MembershipRegistration',
+            component: MembershipRegistration_vue_1["default"]
         },
         {
             path: '/master',

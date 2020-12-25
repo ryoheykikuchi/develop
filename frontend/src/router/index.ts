@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import VueRouter, { RouteConfig } from 'vue-router'
 import Top from '../views/Top.vue'
-import Sample from '../views/Sample.vue'
+import MembershipRegistration from '../views/MembershipRegistration.vue'
 import Error from '../views/Error.vue'
 import UserList from '../views/UserList.vue'
 import Products from '../views/Products.vue'
@@ -16,9 +16,9 @@ export default new VueRouter({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/sample',
-      name: 'Sample',
-      component: Sample
+      path: '/membership-registration',
+      name: 'MembershipRegistration',
+      component: MembershipRegistration
     },
     {
       path: '/master',
