@@ -58,7 +58,7 @@
             v-list-item(
               v-for="item in accountMenus"
               v-if="!item.nonDisplay"
-              @click="$emit('account-event', item.eventName)"
+              @click="event(item.eventName)"
             )
               v-list-item-title(
               ) {{ item.name }}
@@ -133,13 +133,13 @@ export default class AppBar extends Vue {
       {
         name: 'ログイン',
         link: '',
-        eventName: '',
+        eventName: 'toLogin',
         nonDisplay: this.$store.state.loginUser
       },
       {
         name: '新規会員登録',
         link: '',
-        eventName: '',
+        eventName: 'toMembershipRegistration',
         nonDisplay: this.$store.state.loginUser
       }
     ]
@@ -147,6 +147,20 @@ export default class AppBar extends Vue {
 
   get isLoggedIn (): boolean {
     return this.$store.state.loginUser
+  }
+
+  async event (eventName: string): Promise<void> {
+    switch (eventName) {
+      case 'logout':
+        await this.$store.dispatch('logout')
+        break
+      case 'toLogin':
+        this.$router.push({ name: 'Login' })
+        break
+      case 'toMembershipRegistration':
+        this.$router.push({ name: 'MembershipRegistration' })
+        break
+    }
   }
 }
 </script>

@@ -8,6 +8,7 @@ import Products from '../views/Products.vue'
 import ShoppingCart from '../views/ShoppingCart.vue'
 import PurchaseProcedure from '../views/PurchaseProcedure.vue'
 import Master from '../views/Master.vue'
+import Login from '../views/Login.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ export default new VueRouter({
       path: '/membership-registration',
       name: 'MembershipRegistration',
       component: MembershipRegistration
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
     {
       path: '/master',

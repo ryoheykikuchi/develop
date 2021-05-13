@@ -47,6 +47,9 @@ exports["default"] = new vuex_1["default"].Store({
         },
         photoURL: function (state) {
             return state.loginUser ? state.loginUser.photoURL : '';
+        },
+        uid: function (state) {
+            return state.loginUser ? state.loginUser.uid : null;
         }
     },
     mutations: {
@@ -59,9 +62,9 @@ exports["default"] = new vuex_1["default"].Store({
         setProducts: function (state, products) {
             state.products = products;
         },
-        pushToCart: function (state, product) {
+        pushToCart: function (state, productId) {
             state.cartItems.push({
-                id: product.id,
+                id: productId,
                 quantity: 1
             });
         },
@@ -106,11 +109,13 @@ exports["default"] = new vuex_1["default"].Store({
                 alert(res);
             });
         },
-        addToCart: function (_a, product) {
-            var state = _a.state, commit = _a.commit;
-            var cartItem = state.cartItems.find(function (item) { return item.id === product.id; });
+        addToCart: function (_a, productId) {
+            var state = _a.state, getters = _a.getters, commit = _a.commit;
+            var cartItem = state.cartItems.find(function (item) { return item.id === productId; });
             if (!cartItem) {
-                commit('pushToCart', product);
+                if (getters.uid)
+                    firebase_1["default"].firestore().collection("users/" + getters.uid + "/cart_items").add({ id: productId, quantity: 1 });
+                commit('pushToCart', productId);
             }
             else {
                 commit('incrementItemQuantity', cartItem);

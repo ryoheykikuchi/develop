@@ -1,8 +1,5 @@
 <template lang="pug">
   .top
-    v-btn(
-      @click="loginHundler()"
-    ) googleアカウントでログイン
     v-carousel.mb-9(
       height="400"
       hide-delimiter-background
@@ -125,10 +122,6 @@ export default class TOP extends Vue {
 
   clear (): void {
     this.$store.commit('clear')
-  }
-
-  loginHundler (): void {
-    this.$store.dispatch('login')
   }
 }
 </script>

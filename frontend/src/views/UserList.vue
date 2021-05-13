@@ -37,7 +37,8 @@ export default class Sample extends Vue {
   headers: any[] = [
     { text: 'id', value: 'id' },
     { text: 'name', value: 'name' },
-    { text: 'email address', value: 'email' },
+    { text: 'email', value: 'email' },
+    { text: 'address', value: 'address' },
     { text: '', value: 'action', sortable: false, width: '140px' }
   ];
 

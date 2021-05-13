@@ -19,34 +19,10 @@
           v-model="user.email"
         )
         v-text-field(
-          label="郵便番号"
+          label="住所"
           outlined
           dense
-        )
-        v-text-field(
-          label="住所2"
-          outlined
-          dense
-        )
-        v-text-field(
-          label="クレジットカード番号"
-          outlined
-          dense
-        )
-        v-text-field(
-          label="有効期限"
-          outlined
-          dense
-        )
-        v-text-field(
-          label="名義"
-          outlined
-          dense
-        )
-        v-text-field(
-          label="セキュリティキー"
-          outlined
-          dense
+          v-model="user.address"
         )
         v-btn(
           dark
@@ -75,7 +51,8 @@ import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
 export default class MembershipRegistration extends Vue {
   user: any = {
     name: '',
-    email: ''
+    email: '',
+    address: ''
   };
 
   message: any = '';

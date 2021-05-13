@@ -2,7 +2,6 @@
   v-app
     AppBar(
       @change-drawer="drawer = !drawer"
-      @account-event="event"
     )
     v-navigation-drawer(
       app
@@ -23,6 +22,7 @@ import AppBar from './components/AppBar.vue'
 import NavigationContents from './components/NavigationContents.vue'
 import Component from 'vue-class-component'
 import firebase from 'firebase'
+import VueRouter, { RouteConfig } from 'vue-router'
 
 @Component({
   components: {
@@ -41,13 +41,6 @@ export default class App extends Vue {
         this.$store.dispatch('deleteLoginUser')
       }
     })
-  }
-
-  async event (eventName: string): Promise<void> {
-    if (eventName === 'logout') {
-      await this.$store.dispatch('logout')
-      await alert('ログアウトしました')
-    }
   }
 }
 </script>

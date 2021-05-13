@@ -19,6 +19,15 @@
             span(v-else-if="item.stock > 0") 残りわずか
             span(v-else) 入荷待ち
           template(
+            v-slot:item.quantity="{ item }"
+          )
+            v-text-field.pb-0.mb-0(
+              dense
+              outlined
+              hide-details="auto"
+              value=1
+            )
+          template(
             v-slot:item.action="{ item }"
           )
             v-btn(
@@ -28,7 +37,7 @@
             )
               v-icon mdi-information
             v-btn.ml-3(
-              @click="$store.dispatch('addToCart', item)"
+              @click="$store.dispatch('addToCart', item.id)"
               small
               color="primary"
               :disabled="!item.stock"
@@ -45,6 +54,7 @@ export default class Products extends Vue {
     { text: 'product_name', value: 'product_name' },
     { text: 'price', value: 'price' },
     { text: 'stock', value: 'stock' },
+    { text: '', value: 'quantity', sortable: false, width: '70px' },
     { text: '', value: 'action', sortable: false, width: '200px' }
   ];
 

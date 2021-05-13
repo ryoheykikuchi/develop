@@ -10,6 +10,7 @@ var Products_vue_1 = require("../views/Products.vue");
 var ShoppingCart_vue_1 = require("../views/ShoppingCart.vue");
 var PurchaseProcedure_vue_1 = require("../views/PurchaseProcedure.vue");
 var Master_vue_1 = require("../views/Master.vue");
+var Login_vue_1 = require("../views/Login.vue");
 vue_1["default"].use(vue_router_1["default"]);
 exports["default"] = new vue_router_1["default"]({
     mode: 'history',
@@ -19,6 +20,11 @@ exports["default"] = new vue_router_1["default"]({
             path: '/membership-registration',
             name: 'MembershipRegistration',
             component: MembershipRegistration_vue_1["default"]
+        },
+        {
+            path: '/login',
+            name: 'Login',
+            component: Login_vue_1["default"]
         },
         {
             path: '/master',

@@ -47,6 +47,9 @@ export default new Vuex.Store({
     },
     photoURL (state) {
       return state.loginUser ? state.loginUser.photoURL : ''
+    },
+    uid (state) {
+      return state.loginUser ? state.loginUser.uid : null
     }
   },
   mutations: {
@@ -59,9 +62,9 @@ export default new Vuex.Store({
     setProducts (state, products) {
       state.products = products
     },
-    pushToCart (state, product) {
+    pushToCart (state, productId) {
       state.cartItems.push({
-        id: product.id,
+        id: productId,
         quantity: 1
       })
     },
@@ -104,10 +107,11 @@ export default new Vuex.Store({
           alert(res)
         })
     },
-    addToCart ({ state, commit }, product) {
-      const cartItem = state.cartItems.find((item) => item.id === product.id)
+    addToCart ({ state, getters, commit }, productId) {
+      const cartItem = state.cartItems.find((item) => item.id === productId)
       if (!cartItem) {
-        commit('pushToCart', product)
+        if (getters.uid) firebase.firestore().collection(`users/${getters.uid}/cart_items`).add({ id: productId, quantity: 1 })
+        commit('pushToCart', productId)
       } else {
         commit('incrementItemQuantity', cartItem)
       }
