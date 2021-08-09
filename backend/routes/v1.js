@@ -59,6 +59,7 @@ router.post('/select_users', function(req, res, next) {
     res.send(result);
   })
 });
+
 router.post('/insert_user', function(req, res, next) {
   const sql = "INSERT INTO users SET ?";
   con.query(sql, req.body, function (err, result, fields) {
@@ -66,6 +67,18 @@ router.post('/insert_user', function(req, res, next) {
     console.log(result);
     res.send('Submit Successed!');
   })
+});
+
+router.post('/auth_login', function(req, res) {
+  if (req.body.email === 'test' && req.body.password === 'test') {
+    res.send({
+      message: 'OK'
+    })
+  } else {
+    res.send({
+      message: 'メールアドレスまたはパスワードが間違っています'
+    })
+  }
 });
 
 module.exports = router;

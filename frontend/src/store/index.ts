@@ -10,6 +10,8 @@ const products: any[] = []
 const loginUser: any|null = null
 export default new Vuex.Store({
   state: {
+    isLogin: false,
+    userId: '',
     loginUser: loginUser,
     notification: 0,
     products: products,
@@ -53,6 +55,10 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    auth (state, userId) {
+      state.isLogin = true
+      state.userId = userId
+    },
     increment (state, payload) {
       state.notification += payload
     },
@@ -89,9 +95,11 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    login () {
-      const googleauthprovider = new firebase.auth.GoogleAuthProvider()
-      firebase.auth().signInWithRedirect(googleauthprovider)
+    login (context, userId) {
+      context.commit('auth', userId)
+      // googleアカウントSSO機能
+      // const googleauthprovider = new firebase.auth.GoogleAuthProvider()
+      // firebase.auth().signInWithRedirect(googleauthprovider)
     },
     increment (context, payload) {
       setTimeout(() => {

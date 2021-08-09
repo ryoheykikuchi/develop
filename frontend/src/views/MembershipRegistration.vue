@@ -13,16 +13,34 @@
           v-model="user.name"
         )
         v-text-field(
+          label="住所"
+          outlined
+          dense
+          v-model="user.address"
+        )
+        v-text-field(
           label="メールアドレス"
           outlined
           dense
           v-model="user.email"
         )
         v-text-field(
-          label="住所"
+          label="パスワード"
           outlined
           dense
-          v-model="user.address"
+          :append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showPassword ? 'text' : 'password'"
+          v-model="user.password"
+          @click:append="showPassword = !showPassword"
+        )
+        v-text-field(
+          label="パスワード(確認)"
+          outlined
+          dense
+          :append-icon="showConfirmPass ? 'mdi-eye' : 'mdi-eye-off'"
+          :type="showConfirmPass ? 'text' : 'password'"
+          v-model="confirmPass"
+          @click:append="showConfirmPass = !showConfirmPass"
         )
         v-btn(
           dark
@@ -30,13 +48,13 @@
           color="primary"
         ) Submit
         v-alert.mt-5(
-          v-if="success"
+          v-if="isSuccess"
           type="success"
           dense
           outlined
         ) {{ message }}
         v-alert.mt-5(
-          v-if="error"
+          v-if="isError"
           type="error"
           dense
           outlined
@@ -49,16 +67,21 @@ import axios from 'axios'
 import { Prop, Emit, Component, Watch } from 'vue-property-decorator'
 @Component
 export default class MembershipRegistration extends Vue {
+  confirmPass = '';
+  showPassword = false;
+  showConfirmPass = false;
+
   user: any = {
     name: '',
     email: '',
-    address: ''
+    address: '',
+    password: ''
   };
 
-  message: any = '';
+  message = '';
   alertType = '';
-  success = false;
-  error = false;
+  isSuccess = false;
+  isError = false;
 
   mounted () {
     //
@@ -71,15 +94,15 @@ export default class MembershipRegistration extends Vue {
   submit (): void {
     if (this.user.name === '' || this.user.email === '') {
       this.message = '未入力の項目があります'
-      this.success = false
-      this.error = true
+      this.isSuccess = false
+      this.isError = true
     } else {
       axios.post('http://localhost:3000/v1/insert_user', this.user)
         .then(res => {
           this.message = res.data
           this.alertType = 'success'
-          this.success = true
-          this.error = false
+          this.isSuccess = true
+          this.isError = false
         })
         .catch(res => {
           console.log(res)

@@ -9,10 +9,12 @@ import ShoppingCart from '../views/ShoppingCart.vue'
 import PurchaseProcedure from '../views/PurchaseProcedure.vue'
 import Master from '../views/Master.vue'
 import Login from '../views/Login.vue'
+import store from '@/store'
 
 Vue.use(VueRouter)
 
-export default new VueRouter({
+// export default new VueRouter({
+const router = new VueRouter({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -34,6 +36,9 @@ export default new VueRouter({
     {
       path: '/user-list',
       name: 'UserList',
+      meta: {
+        requiresAuth: true
+      },
       component: UserList
     },
     {
@@ -76,3 +81,22 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!store.state.isLogin) {
+      next({
+        path: '/login',
+        query: {
+          redirect: to.fullPath
+        }
+      })
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

@@ -10,6 +10,8 @@ var products = [];
 var loginUser = null;
 exports["default"] = new vuex_1["default"].Store({
     state: {
+        isLogin: false,
+        userId: '',
         loginUser: loginUser,
         notification: 0,
         products: products,
@@ -53,6 +55,10 @@ exports["default"] = new vuex_1["default"].Store({
         }
     },
     mutations: {
+        auth: function (state, userId) {
+            state.isLogin = true;
+            state.userId = userId;
+        },
         increment: function (state, payload) {
             state.notification += payload;
         },
@@ -91,9 +97,11 @@ exports["default"] = new vuex_1["default"].Store({
         }
     },
     actions: {
-        login: function () {
-            var googleauthprovider = new firebase_1["default"].auth.GoogleAuthProvider();
-            firebase_1["default"].auth().signInWithRedirect(googleauthprovider);
+        login: function (context, userId) {
+            context.commit('auth', userId);
+            // googleアカウントSSO機能
+            // const googleauthprovider = new firebase.auth.GoogleAuthProvider()
+            // firebase.auth().signInWithRedirect(googleauthprovider)
         },
         increment: function (context, payload) {
             setTimeout(function () {

@@ -11,8 +11,10 @@ var ShoppingCart_vue_1 = require("../views/ShoppingCart.vue");
 var PurchaseProcedure_vue_1 = require("../views/PurchaseProcedure.vue");
 var Master_vue_1 = require("../views/Master.vue");
 var Login_vue_1 = require("../views/Login.vue");
+var store_1 = require("@/store");
 vue_1["default"].use(vue_router_1["default"]);
-exports["default"] = new vue_router_1["default"]({
+// export default new VueRouter({
+var router = new vue_router_1["default"]({
     mode: 'history',
     base: process.env.BASE_URL,
     routes: [
@@ -34,6 +36,9 @@ exports["default"] = new vue_router_1["default"]({
         {
             path: '/user-list',
             name: 'UserList',
+            meta: {
+                requiresAuth: true
+            },
             component: UserList_vue_1["default"]
         },
         {
@@ -76,3 +81,22 @@ exports["default"] = new vue_router_1["default"]({
         }
     ]
 });
+router.beforeEach(function (to, from, next) {
+    if (to.matched.some(function (record) { return record.meta.requiresAuth; })) {
+        if (!store_1["default"].state.isLogin) {
+            next({
+                path: '/login',
+                query: {
+                    redirect: to.fullPath
+                }
+            });
+        }
+        else {
+            next();
+        }
+    }
+    else {
+        next();
+    }
+});
+exports["default"] = router;
